@@ -4,8 +4,9 @@
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <jsp:useBean id="user" class="user.User" scope="page" />
-<jsp:setProperty name="user" property="userID" />
-<jsp:setProperty name="user" property="userPassword" />
+<jsp:setProperty name="user" property="userID" param="userID" />
+<jsp:setProperty name="user" property="userPassword" param="userPassword" />
+<!-- property이름과 param이름이 동일  할 경우 property만 입력해도 알아서 빈안에 들어가게 된다. -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
 			
 		}
 		UserDAO userDAO = new UserDAO();
-		int result= userDAO.login(user.getUserID(), user.getUserPassword());
+		int result = userDAO.login(user.getUserID(), user.getUserPassword());
 		if (result == 1) {
 			session.setAttribute("userID", user.getUserID());
 			PrintWriter script = response.getWriter();
